@@ -1,0 +1,1 @@
+/home/pranav/Projects/Rosales_2026_Pred_Prey_Cam_Traps
