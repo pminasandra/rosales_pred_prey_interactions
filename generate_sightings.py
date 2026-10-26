@@ -13,7 +13,7 @@ from detections import run_cameras_on_trajectory
 
 def make_camsets(camera_sizes=None):
     if camera_sizes is None:
-        camera_sizes = config.CAMERA_COUNTS
+        camera_sizes = config.CAMERA_SIZES
 
     camsets = {}
 
