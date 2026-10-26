@@ -11,16 +11,19 @@ import cameras
 from detections import run_cameras_on_trajectory
 
 
-def make_camsets(seed=config.CAMERA_SEED, camera_sizes=None):
-    """Shared, reproducible camera configurations for all conditions."""
+def make_camsets(camera_sizes=None):
     if camera_sizes is None:
-        camera_sizes = config.CAMERA_SIZES
-    rng = np.random.default_rng(seed)
+        camera_sizes = config.CAMERA_COUNTS
+
     camsets = {}
+
     for s in camera_sizes:
-        cam_radii = rng.uniform(config.CAMERA_RADIUS_MIN,
-                                config.CAMERA_RADIUS_MAX, s)
-        camsets[s] = cameras.make_camera_grid(s, cam_radii, box_size=config.BOX_SIZE)
+        cam_radii = np.full(s, config.CAMERA_RADIUS)
+
+        camsets[s] = cameras.make_camera_grid(
+            s, cam_radii, box_size=config.BOX_SIZE
+        )
+
     return camsets
 
 

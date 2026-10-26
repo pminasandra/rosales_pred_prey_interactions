@@ -65,6 +65,5 @@ PREY_RETURN_MARGIN = 0.0
 
 # Camera configuration (independent of biological movement)
 CAMERA_SIZES = [4, 9, 16, 25, 36, 49, 64, 81]
-CAMERA_RADIUS_MIN = 0.3
-CAMERA_RADIUS_MAX = 1.0
+CAMERA_RADIUS = 0.75
 CAMERA_SEED = 1234
