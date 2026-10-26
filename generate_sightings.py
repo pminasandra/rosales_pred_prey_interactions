@@ -63,12 +63,12 @@ def generate_all_sightings(
             cam_dir = cameras_root / N_dir.name / cond_dir.name
             sight_dir.mkdir(parents=True, exist_ok=True)
             cam_dir.mkdir(parents=True, exist_ok=True)
-            for npy_file in sorted(cond_dir.glob('sim_*.npy')):
-                base = npy_file.stem
+            for traj_file in sorted(cond_dir.glob('sim_*.parquet')):
+                base = traj_file.stem
                 seed_for_this_sim = seed_base + int(base.split('_')[1])
                 for k in camera_sizes:
                     df_sight, cam_positions, cam_radii = run_cameras_on_trajectory(
-                        traj_path=npy_file, cams=cams[k] if cams is not None else None,
+                        traj_path=traj_file, cams=cams[k] if cams is not None else None,
                         m=k, radius=radius, box_size=box_size,
                         seed=seed_for_this_sim)
                     sight_out = sight_dir / f'{base}_ncams_{k}.parquet'

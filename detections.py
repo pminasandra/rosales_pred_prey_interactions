@@ -25,7 +25,19 @@ def run_cameras_on_trajectory(
     config.N_PREDATORS trajectory columns; prey occupy the remaining columns.
     If cameras overlap, an animal is counted by the nearest camera only.
     """
-    traj_pos = np.load(Path(traj_path))
+    df = pd.read_parquet(traj_path)
+
+    npred = config.N_PREDATORS
+    nprey = config.N_PREY
+
+    columns = (
+        [f'predator{i}_{axis}' for i in range(npred) for axis in ('x', 'y')]
+        + [f'prey{i}_{axis}' for i in range(nprey) for axis in ('x', 'y')]
+    )
+
+    traj_pos = df[columns].to_numpy().reshape(
+        len(df), npred + nprey, 2
+    )
     if traj_pos.ndim != 3 or traj_pos.shape[2] != 2:
         raise ValueError('Expected traj_pos with shape (T+1, N, 2).')
     T1, N, _ = traj_pos.shape
